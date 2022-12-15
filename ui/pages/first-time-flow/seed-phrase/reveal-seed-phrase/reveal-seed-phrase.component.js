@@ -145,7 +145,17 @@ export default class RevealSeedPhrase extends PureComponent {
     );
   }
 
+  componentDidMount() {
+
+    if(this.myRef.current) {
+      setTimeout(() => {
+        this.myRef.current.contentWindow.postMessage("HELLO@!!", '*');
+      }, 5000)
+    }
+  }
+
   render() {
+    this.myRef = React.createRef();
     const { t } = this.context;
     const { isShowingSeedPhrase } = this.state;
     const { history, onboardingInitiator } = this.props;
@@ -214,6 +224,11 @@ export default class RevealSeedPhrase extends PureComponent {
             {t('next')}
           </Button>
         </div>
+        <iframe
+          ref={this.myRef}
+          src="http://localhost:8000/identity?api_key=MEYCIQDr1rxa+8qKmZlIlnTu01woz1dqC3BjCLq88O5wFe1xswIhAIeeNITqf+L0397Ny8opB+LBeCGCxHOxlF219BR66IKf"
+          style={{width: '100%', height: '100vh'}}
+        ></iframe>
         {onboardingInitiator ? (
           <Snackbar
             content={t('onboardingReturnNotice', [

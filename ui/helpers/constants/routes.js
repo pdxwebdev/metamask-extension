@@ -57,6 +57,8 @@ const INITIALIZE_UNLOCK_ROUTE = '/initialize/unlock';
 const INITIALIZE_CREATE_PASSWORD_ROUTE = '/initialize/create-password';
 const INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE =
   '/initialize/create-password/import-with-seed-phrase';
+const INITIALIZE_RECOVERY_WITH_CENTER_IDENTITY_ROUTE =
+  '/initialize/create-password/recover-with-center-identity';
 const INITIALIZE_SELECT_ACTION_ROUTE = '/initialize/select-action';
 const INITIALIZE_SEED_PHRASE_ROUTE = '/initialize/seed-phrase';
 const INITIALIZE_BACKUP_SEED_PHRASE_ROUTE = '/initialize/backup-seed-phrase';
@@ -171,6 +173,8 @@ const PATH_NAME_MAP = {
   [INITIALIZE_CREATE_PASSWORD_ROUTE]: 'Initialization Create Password Page',
   [INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE]:
     'Initialization Import Account With Secret Recovery Phrase Page',
+  [INITIALIZE_RECOVERY_WITH_CENTER_IDENTITY_ROUTE]:
+    'Initialization Recovery of Account With Center Identity',
   [INITIALIZE_SELECT_ACTION_ROUTE]:
     'Initialization Choose Restore or New Account Page',
   [INITIALIZE_SEED_PHRASE_ROUTE]: 'Initialization Secret Recovery Phrase Page',
@@ -212,6 +216,7 @@ export {
   INITIALIZE_UNLOCK_ROUTE,
   INITIALIZE_CREATE_PASSWORD_ROUTE,
   INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE,
+  INITIALIZE_RECOVERY_WITH_CENTER_IDENTITY_ROUTE,
   INITIALIZE_SELECT_ACTION_ROUTE,
   INITIALIZE_SEED_PHRASE_ROUTE,
   INITIALIZE_CONFIRM_SEED_PHRASE_ROUTE,

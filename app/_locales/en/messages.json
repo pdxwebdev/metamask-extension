@@ -4546,5 +4546,17 @@
   },
   "zeroGasPriceOnSpeedUpError": {
     "message": "Zero gas price on speed up"
+  },
+  "recoverWallet": {
+    "message": "Recover wallet"
+  },
+  "useCenterIdentity": {
+    "message": "Recover your wallet with a secret username and location"
+  },
+  "useCenterIdentityLocation": {
+    "message": "Use Center Identity to recover my wallet"
+  },
+  "recover": {
+    "message": "Recover"
   }
 }

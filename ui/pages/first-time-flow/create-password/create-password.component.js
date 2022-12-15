@@ -6,9 +6,11 @@ import {
   INITIALIZE_CREATE_PASSWORD_ROUTE,
   INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE,
   INITIALIZE_SEED_PHRASE_INTRO_ROUTE,
+  INITIALIZE_RECOVERY_WITH_CENTER_IDENTITY_ROUTE
 } from '../../../helpers/constants/routes';
 import NewAccount from './new-account';
 import ImportWithSeedPhrase from './import-with-seed-phrase';
+import RecoverWithCenterIdentity from './import-with-center-identity';
 
 export default class CreatePassword extends PureComponent {
   static propTypes = {
@@ -48,6 +50,16 @@ export default class CreatePassword extends PureComponent {
             path={INITIALIZE_CREATE_PASSWORD_ROUTE}
             render={(routeProps) => (
               <NewAccount {...routeProps} onSubmit={onCreateNewAccount} />
+            )}
+          />
+          <Route
+            exact
+            path={INITIALIZE_RECOVERY_WITH_CENTER_IDENTITY_ROUTE}
+            render={(routeProps) => (
+              <RecoverWithCenterIdentity
+                {...routeProps}
+                onSubmit={onCreateNewAccountFromSeed}
+              />
             )}
           />
         </Switch>

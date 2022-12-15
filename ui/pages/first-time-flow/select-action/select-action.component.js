@@ -6,6 +6,7 @@ import { EVENT, EVENT_NAMES } from '../../../../shared/constants/metametrics';
 import {
   INITIALIZE_CREATE_PASSWORD_ROUTE,
   INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE,
+  INITIALIZE_RECOVERY_WITH_CENTER_IDENTITY_ROUTE
 } from '../../../helpers/constants/routes';
 
 export default class SelectAction extends PureComponent {
@@ -72,6 +73,27 @@ export default class SelectAction extends PureComponent {
     this.props.history.push(INITIALIZE_IMPORT_WITH_SEED_PHRASE_ROUTE);
   };
 
+  handleRecover = () => {
+    const { metaMetricsId } = this.props;
+    const { trackEvent } = this.context;
+    this.props.setFirstTimeFlowType('recover');
+    trackEvent(
+      {
+        category: EVENT.CATEGORIES.ONBOARDING,
+        event: EVENT_NAMES.WALLET_SETUP_STARTED,
+        properties: {
+          account_type: EVENT.ACCOUNT_TYPES.IMPORTED,
+        },
+      },
+      {
+        isOptIn: true,
+        metaMetricsId,
+        flushImmediately: true,
+      },
+    );
+    this.props.history.push(INITIALIZE_RECOVERY_WITH_CENTER_IDENTITY_ROUTE);
+  };
+
   render() {
     const { t } = this.context;
 
@@ -85,6 +107,27 @@ export default class SelectAction extends PureComponent {
               {t('newToMetaMask')}
             </div>
             <div className="select-action__select-buttons">
+              <div className="select-action__select-button">
+                <div className="select-action__button-content">
+                  <div className="select-action__button-symbol">
+                    <i className="fa fa-globe fa-2x" />
+                  </div>
+                  <div className="select-action__button-text-big">
+                    {t('useCenterIdentityLocation')}
+                  </div>
+                  <div className="select-action__button-text-small">
+                    {t('useCenterIdentity')}
+                  </div>
+                </div>
+                <Button
+                  type="primary"
+                  className="first-time-flow__button"
+                  onClick={this.handleRecover}
+                  data-testid="import-wallet-button"
+                >
+                  {t('recoverWallet')}
+                </Button>
+              </div>
               <div className="select-action__select-button">
                 <div className="select-action__button-content">
                   <div className="select-action__button-symbol">
