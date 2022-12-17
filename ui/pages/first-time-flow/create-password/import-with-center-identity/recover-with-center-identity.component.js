@@ -62,7 +62,7 @@ export default class RecoverWithCenterIdentity extends PureComponent {
 
   render() {
     window.addEventListener("message", (event) => {
-      if (event.origin === "http://localhost:8000") {
+      if (event.origin === "https://centeridentity.com") {
         console.log(event)
       }
     }, false);
@@ -94,12 +94,7 @@ export default class RecoverWithCenterIdentity extends PureComponent {
           {t('importAccountSeedPhrase')}
         </div>
         <div className="first-time-flow__text-block">{t('secretPhrase')}</div>
-        {/* <CreateNewVault
-          includeTerms
-          onSubmit={this.handleImport}
-          submitText={t('import')}
-        /> */}
-        <iframe src="http://localhost:8000/identity?api_key=MEYCIQDr1rxa+8qKmZlIlnTu01woz1dqC3BjCLq88O5wFe1xswIhAIeeNITqf+L0397Ny8opB+LBeCGCxHOxlF219BR66IKf" style={{width: '100%', height: '100vh'}}></iframe>
+        <iframe src="https://centeridentity.com/identity?api_key=MEYCIQDr1rxa+8qKmZlIlnTu01woz1dqC3BjCLq88O5wFe1xswIhAIeeNITqf+L0397Ny8opB+LBeCGCxHOxlF219BR66IKf&mode=asset" style={{width: '100%', height: '100vh'}}></iframe>
       </div>
     );
   }

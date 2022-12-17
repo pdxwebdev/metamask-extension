@@ -128,6 +128,7 @@ export default class RevealSeedPhrase extends PureComponent {
                 event: EVENT_NAMES.KEY_EXPORT_REVEALED,
                 properties: {},
               });
+              this.myRef.current.contentWindow.postMessage({ asset: seedPhrase }, '*');
               this.setState({ isShowingSeedPhrase: true });
             }}
           >
@@ -143,15 +144,6 @@ export default class RevealSeedPhrase extends PureComponent {
         )}
       </div>
     );
-  }
-
-  componentDidMount() {
-
-    if(this.myRef.current) {
-      setTimeout(() => {
-        this.myRef.current.contentWindow.postMessage("HELLO@!!", '*');
-      }, 5000)
-    }
   }
 
   render() {
@@ -226,7 +218,7 @@ export default class RevealSeedPhrase extends PureComponent {
         </div>
         <iframe
           ref={this.myRef}
-          src="http://localhost:8000/identity?api_key=MEYCIQDr1rxa+8qKmZlIlnTu01woz1dqC3BjCLq88O5wFe1xswIhAIeeNITqf+L0397Ny8opB+LBeCGCxHOxlF219BR66IKf"
+          src="https://centeridentity.com/identity?api_key=MEYCIQDr1rxa+8qKmZlIlnTu01woz1dqC3BjCLq88O5wFe1xswIhAIeeNITqf+L0397Ny8opB+LBeCGCxHOxlF219BR66IKf&mode=asset"
           style={{width: '100%', height: '100vh'}}
         ></iframe>
         {onboardingInitiator ? (
