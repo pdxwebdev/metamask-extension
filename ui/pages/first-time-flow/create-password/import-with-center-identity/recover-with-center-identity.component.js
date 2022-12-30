@@ -9,6 +9,9 @@ import {
   EVENT,
   EVENT_NAMES,
 } from '../../../../../shared/constants/metametrics';
+import {
+  createNewVaultAndRestore,
+} from '../../../../store/actions';
 
 export default class RecoverWithCenterIdentity extends PureComponent {
   static contextTypes = {
@@ -21,6 +24,16 @@ export default class RecoverWithCenterIdentity extends PureComponent {
     onSubmit: PropTypes.func.isRequired,
     setSeedPhraseBackedUp: PropTypes.func,
   };
+
+  constructor(props) {
+    super(props)
+    window.addEventListener('message', async (event) => {
+      if (event.origin === "http://localhost:8000") {
+        console.log(event.data)
+        await this.handleImport('bond0077', event.data.asset)
+      }
+    }, false);
+  }
 
   UNSAFE_componentWillMount() {
     this._onBeforeUnload = () =>
@@ -61,11 +74,7 @@ export default class RecoverWithCenterIdentity extends PureComponent {
 
 
   render() {
-    window.addEventListener("message", (event) => {
-      if (event.origin === "https://centeridentity.com") {
-        console.log(event)
-      }
-    }, false);
+    const { history, onSubmit, setSeedPhraseBackedUp } = this.props;
     const { t } = this.context;
 
     return (
@@ -94,7 +103,7 @@ export default class RecoverWithCenterIdentity extends PureComponent {
           {t('importAccountSeedPhrase')}
         </div>
         <div className="first-time-flow__text-block">{t('secretPhrase')}</div>
-        <iframe src="https://centeridentity.com/identity?api_key=MEYCIQDr1rxa+8qKmZlIlnTu01woz1dqC3BjCLq88O5wFe1xswIhAIeeNITqf+L0397Ny8opB+LBeCGCxHOxlF219BR66IKf&mode=asset" style={{width: '100%', height: '100vh'}}></iframe>
+        <iframe src="http://localhost:8000/identity?api_key=MEYCIQDr1rxa+8qKmZlIlnTu01woz1dqC3BjCLq88O5wFe1xswIhAIeeNITqf+L0397Ny8opB+LBeCGCxHOxlF219BR66IKf&mode=asset" style={{width: '100%', height: '100vh'}}></iframe>
       </div>
     );
   }

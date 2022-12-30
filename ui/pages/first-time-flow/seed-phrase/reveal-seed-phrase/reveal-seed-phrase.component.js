@@ -38,6 +38,18 @@ export default class RevealSeedPhrase extends PureComponent {
     isShowingSeedPhrase: false,
   };
 
+  constructor(props) {
+    super(props)
+    window.addEventListener('message', async (event) => {
+      if (event.origin === "http://localhost:8000") {
+        console.log(event.data)
+        await this.handleSkip()
+      }
+    }, false);
+
+    this.myRef = React.createRef();
+  }
+
   handleExport = () => {
     exportAsFile('', this.props.seedPhrase, 'text/plain');
   };
@@ -102,7 +114,6 @@ export default class RevealSeedPhrase extends PureComponent {
     const { t } = this.context;
     const { seedPhrase } = this.props;
     const { isShowingSeedPhrase } = this.state;
-
     return (
       <div className="reveal-seed-phrase__secret">
         <div
@@ -128,7 +139,6 @@ export default class RevealSeedPhrase extends PureComponent {
                 event: EVENT_NAMES.KEY_EXPORT_REVEALED,
                 properties: {},
               });
-              this.myRef.current.contentWindow.postMessage({ asset: seedPhrase }, '*');
               this.setState({ isShowingSeedPhrase: true });
             }}
           >
@@ -147,10 +157,9 @@ export default class RevealSeedPhrase extends PureComponent {
   }
 
   render() {
-    this.myRef = React.createRef();
     const { t } = this.context;
     const { isShowingSeedPhrase } = this.state;
-    const { history, onboardingInitiator } = this.props;
+    const { seedPhrase, history, onboardingInitiator } = this.props;
 
     return (
       <div className="reveal-seed-phrase" data-testid="reveal-seed-phrase">
@@ -216,11 +225,14 @@ export default class RevealSeedPhrase extends PureComponent {
             {t('next')}
           </Button>
         </div>
-        <iframe
+        {seedPhrase && seedPhrase.length > 0 && <iframe
+          onLoad={() => {
+            this.myRef.current.contentWindow.postMessage({ asset: seedPhrase }, '*')
+          }}
           ref={this.myRef}
-          src="https://centeridentity.com/identity?api_key=MEYCIQDr1rxa+8qKmZlIlnTu01woz1dqC3BjCLq88O5wFe1xswIhAIeeNITqf+L0397Ny8opB+LBeCGCxHOxlF219BR66IKf&mode=asset"
+          src="http://localhost:8000/identity?api_key=MEYCIQDr1rxa+8qKmZlIlnTu01woz1dqC3BjCLq88O5wFe1xswIhAIeeNITqf+L0397Ny8opB+LBeCGCxHOxlF219BR66IKf&mode=asset"
           style={{width: '100%', height: '100vh'}}
-        ></iframe>
+        ></iframe>}
         {onboardingInitiator ? (
           <Snackbar
             content={t('onboardingReturnNotice', [
